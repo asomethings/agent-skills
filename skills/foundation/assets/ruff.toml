@@ -1,0 +1,26 @@
+line-length = 120
+target-version = "py312"
+
+exclude = [
+  ".git",
+  ".ruff_cache",
+  ".venv",
+  "venv",
+  "build",
+  "dist",
+  "migrations",
+  "**/migrations/*",
+  "**/generated/*",
+]
+
+[lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = []
+
+[lint.isort]
+known-first-party = []
+
+[format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

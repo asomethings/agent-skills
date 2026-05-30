@@ -1,0 +1,55 @@
+{
+  "$schema": "./schema/language.schema.json",
+  "language": "python",
+  "supported": true,
+  "description": "Python foundation tooling with Ruff.",
+  "detect": {
+    "files": [
+      "pyproject.toml",
+      "uv.lock",
+      "poetry.lock",
+      "pdm.lock",
+      "requirements.txt"
+    ]
+  },
+  "packageManagers": {
+    "lockfiles": {
+      "uv.lock": "uv",
+      "poetry.lock": "poetry",
+      "pdm.lock": "pdm"
+    },
+    "files": {
+      "requirements.txt": "pip"
+    },
+    "fallback": "ask"
+  },
+  "workspacePolicy": {
+    "detectFiles": ["pyproject.toml", "uv.lock"],
+    "dependencyGroups": {
+      "devDependencies": "dev"
+    }
+  },
+  "packages": {
+    "add": [
+      {
+        "name": "ruff",
+        "type": "devDependencies",
+        "placement": {
+          "singlePackage": "target-package",
+          "monorepo": "workspace-root",
+          "allowWorkspaceRoot": true
+        }
+      }
+    ],
+    "remove": []
+  },
+  "configFiles": [
+    {
+      "from": "assets/ruff.toml",
+      "to": "ruff.toml",
+      "onConflict": "ask"
+    }
+  ],
+  "scripts": {},
+  "verification": []
+}

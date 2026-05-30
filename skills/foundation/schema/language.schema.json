@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Foundation language manifest",
+  "type": "object",
+  "required": ["language", "supported", "description"],
+  "properties": {
+    "language": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "supported": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "detect": {
+      "type": "object"
+    },
+    "packageManagers": {
+      "type": "object"
+    },
+    "workspacePolicy": {
+      "type": "object",
+      "properties": {
+        "detectFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "packageJsonWorkspaceField": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "packages": {
+      "type": "object",
+      "properties": {
+        "add": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/packageOperation"
+          }
+        },
+        "remove": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/packageOperation"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "configFiles": {
+      "type": "array"
+    },
+    "scripts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "packageOperation": {
+      "type": "object",
+      "required": ["name", "type", "placement"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "dependencies",
+            "devDependencies",
+            "optionalDependencies",
+            "peerDependencies"
+          ]
+        },
+        "placement": {
+          "type": "object",
+          "required": ["singlePackage", "monorepo", "allowWorkspaceRoot"],
+          "properties": {
+            "singlePackage": {
+              "$ref": "#/$defs/packagePlacement"
+            },
+            "monorepo": {
+              "$ref": "#/$defs/packagePlacement"
+            },
+            "allowWorkspaceRoot": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "packagePlacement": {
+      "type": "string",
+      "enum": [
+        "target-package",
+        "workspace-root",
+        "ask-workspace-package",
+        "all-workspace-packages",
+        "skip"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

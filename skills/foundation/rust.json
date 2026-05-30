@@ -1,0 +1,7 @@
+{
+  "$schema": "./schema/language.schema.json",
+  "language": "rust",
+  "supported": false,
+  "description": "Rust foundation tooling is not supported yet.",
+  "message": "Rust is not supported by the foundation skill yet. Add a Rust manifest with supported=true before installing Rust tooling."
+}

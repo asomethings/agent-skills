@@ -1,0 +1,120 @@
+{
+  "$schema": "./schema/language.schema.json",
+  "language": "node",
+  "supported": true,
+  "description": "Node.js foundation tooling with Oxlint, Oxfmt, commitlint, Husky, and ts-pattern.",
+  "detect": {
+    "files": ["package.json"]
+  },
+  "packageManagers": {
+    "lockfiles": {
+      "pnpm-lock.yaml": "pnpm",
+      "yarn.lock": "yarn",
+      "bun.lock": "bun",
+      "bun.lockb": "bun",
+      "package-lock.json": "npm"
+    },
+    "fallback": "ask"
+  },
+  "workspacePolicy": {
+    "detectFiles": [
+      "pnpm-workspace.yaml",
+      "turbo.json",
+      "lerna.json",
+      "nx.json"
+    ],
+    "packageJsonWorkspaceField": "workspaces"
+  },
+  "packages": {
+    "add": [
+      {
+        "name": "oxlint",
+        "type": "devDependencies",
+        "placement": {
+          "singlePackage": "target-package",
+          "monorepo": "workspace-root",
+          "allowWorkspaceRoot": true
+        }
+      },
+      {
+        "name": "oxfmt",
+        "type": "devDependencies",
+        "placement": {
+          "singlePackage": "target-package",
+          "monorepo": "workspace-root",
+          "allowWorkspaceRoot": true
+        }
+      },
+      {
+        "name": "ts-pattern",
+        "type": "dependencies",
+        "placement": {
+          "singlePackage": "target-package",
+          "monorepo": "ask-workspace-package",
+          "allowWorkspaceRoot": false
+        }
+      },
+      {
+        "name": "@commitlint/cli",
+        "type": "devDependencies",
+        "placement": {
+          "singlePackage": "target-package",
+          "monorepo": "workspace-root",
+          "allowWorkspaceRoot": true
+        }
+      },
+      {
+        "name": "@commitlint/config-conventional",
+        "type": "devDependencies",
+        "placement": {
+          "singlePackage": "target-package",
+          "monorepo": "workspace-root",
+          "allowWorkspaceRoot": true
+        }
+      },
+      {
+        "name": "husky",
+        "type": "devDependencies",
+        "placement": {
+          "singlePackage": "target-package",
+          "monorepo": "workspace-root",
+          "allowWorkspaceRoot": true
+        }
+      }
+    ],
+    "remove": []
+  },
+  "configFiles": [
+    {
+      "from": "assets/.oxfmtrc.json",
+      "to": ".oxfmtrc.json",
+      "onConflict": "ask"
+    },
+    {
+      "from": "assets/.oxlintrc.json",
+      "to": ".oxlintrc.json",
+      "onConflict": "ask"
+    },
+    {
+      "from": "assets/commitlint.config.js",
+      "to": "commitlint.config.js",
+      "onConflict": "ask"
+    }
+  ],
+  "scripts": {
+    "format": "oxfmt .",
+    "check": "oxfmt . --check && oxlint .",
+    "lint": "oxlint .",
+    "commitlint": "commitlint --edit"
+  },
+  "gitHooks": [
+    {
+      "manager": "husky",
+      "hook": "commit-msg",
+      "to": ".husky/commit-msg",
+      "content": "npx --no -- commitlint --edit \"$1\"",
+      "onConflict": "ask"
+    }
+  ],
+  "verification": ["check"]
+}

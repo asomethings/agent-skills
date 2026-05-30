@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "curly": ["error", "all"],
+    "max-depth": ["warn", 3],
+    "max-nested-callbacks": ["warn", 3],
+    "no-nested-ternary": "error"
+  },
+  "ignorePatterns": [
+    "src/routeTree.gen.ts",
+    "src/styles.css",
+    "worker-configuration.d.ts"
+  ]
+}
